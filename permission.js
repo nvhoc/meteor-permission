@@ -1,28 +1,48 @@
-PERMISSION = (function(){
-    PERMISSION.ROLELIST={};
+PERMISSION = {
+    ROLELIST: {
+        none: new ROLE('none')
+    },
+    length: 1,
     /**
      * @return {boolean}
      */
-    var ISPASS = function(type,path){
-        var roles = Meteor.user().roles;
-        roles.forEach(function(role){
-            if (!PERMISSION.ROLELIST[role].isUserInRole(type,path))
-                return false;
-        });
-        return true;
-    };
-    PERMISSION.init = function(list){
-        list.forEach(function(role){
+    ISPASS: function (type, path) {
+        try {
+            var roles = Meteor.user().roles;
+        } catch (e) {
+            roles = ['none'];
+        }
+        if (!roles)
+            roles = ['none'];
+        var l = roles.length;
+        for (var i =0; i< l; i++){
+            var role = roles[i];
+            if (PERMISSION.ROLELIST[role].isUserInRole(type, path))
+                return true;
+        };
+        return false;
+    },
+    init: function (list) {
+        list.forEach(function (role) {
             var roleObject = new ROLE(role);
-            PERMISSION.ROLELIST[role.name]= roleObject;
+            PERMISSION.ROLELIST[role.name] = roleObject;
         });
-    }
-    PERMISSION.doActionWithPermission = function(type,path,cb){
+        PERMISSION.length = list.length;
+    },
+    doActionWithPermission: function (type, path, cb) {
         //TODO 1. get Role
-        if (!ISPASS(type,path))
+        if (!PERMISSION.ISPASS(type, path))
             return false;
         cb();
         return true;
     }
 
-})();
+};
+if (PERMISSION.length == 1 && PERMISSION.ROLELIST.none) {
+    console.log(PERMISSION.ROLELIST.none);
+    PERMISSION.ROLELIST.none.setPermissionAll('allow', 'route');
+    PERMISSION.ROLELIST.none.setPermissionAll('allow', 'method');
+    PERMISSION.ROLELIST.none.setPermissionAll('allow', 'collection_read');
+    PERMISSION.ROLELIST.none.setPermissionAll('allow', 'collection_write');
+    PERMISSION.ROLELIST.none.setPermissionAll('allow', 'ui');
+}

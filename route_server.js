@@ -1,6 +1,6 @@
 Iron.Router.hooks.secureHook = function () {
     var self = this;
-    var isNext = Permission.doActionWithPermission('route', Router.current().url, function () {
+    var isNext = PERMISSION.doActionWithPermission('route', Router.current().url, function () {
         self.next();
     });
     if (!isNext) {

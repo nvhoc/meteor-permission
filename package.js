@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'hocnguyen:meteor-permission',
+    name: 'hocnv:meteor-permission',
     summary: "Provide a permission manager",
     version: "0.0.1"
 });
