@@ -32,9 +32,9 @@ ROLE=function() {
         }
     };
 
-    function ROLE(aNewRole) {
+    var _constructor = function (aNewRole) {
         role = aNewRole;
-    };
+    }(this);
     this.setPermission = function (kind, type, path) {
         if (permission[type][kind] == 'all')
             permission[type][kind] = [];

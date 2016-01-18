@@ -8,7 +8,7 @@ Package.on_use(function (api) {
     api.use('mongo');
     api.use('iron:router');
     api.add_files(['collection.js']);
-    api.add_files(['method.js']);
+    api.add_files(['method.js'],'server');
     api.add_files(['route_client.js'], 'client');
     api.add_files(['route_server.js'], 'server');
     api.add_files(['ui.js']);
