@@ -14,51 +14,56 @@ Mongo.Collection.prototype.makeSecure = function(){
     });
 };
 Mongo.Collection.prototype.secureFind = function(){
-    var Func = Mongo.Collection.prototype.find;
+    var Func = this.find;
     var f_args = Array.prototype.slice.call(arguments);
     var result = {};
+    var that = this;
     PERMISSION.doActionWithPermission('collection_read',this._name,function(){
-        result = Func.apply(f_args);
+        result = Func.apply(that,f_args);
     });
     return result;
 
 };
 Mongo.Collection.prototype.secureFindOne = function(){
-    var Func = Mongo.Collection.prototype.findOne;
+    var Func = this.findOne;
     var f_args = Array.prototype.slice.call(arguments);
     var result = {};
+    var that = this;
     PERMISSION.doActionWithPermission('collection_read',this._name,function(){
-        result = Func.apply(f_args);
+        result = Func.apply(that,f_args);
     });
     return result;
 
 };
 Mongo.Collection.prototype.secureInsert = function(){
-    var Func = Mongo.Collection.prototype.insert;
+    var Func = this.insert;
     var f_args = Array.prototype.slice.call(arguments);
     var result = {};
+    var that = this;
     PERMISSION.doActionWithPermission('collection_write',this._name,function(){
-        result = Func.apply(f_args);
+        result = Func.apply(that,f_args);
     });
     return result;
 
 };
 Mongo.Collection.prototype.secureUpdate = function(){
-    var Func = Mongo.Collection.prototype.update;
+    var Func = this.update;
     var f_args = Array.prototype.slice.call(arguments);
     var result = {};
+    var that = this;
     PERMISSION.doActionWithPermission('collection_write',this._name,function(){
-        result = Func.apply(f_args);
+        result = Func.apply(that,f_args);
     });
     return result;
 
 };
 Mongo.Collection.prototype.secureRemove = function(){
-    var Func = Mongo.Collection.prototype.remove;
+    var Func = this.remove;
     var f_args = Array.prototype.slice.call(arguments);
     var result = {};
+    var that = this;
     PERMISSION.doActionWithPermission('collection_write',this._name,function(){
-        result = Func.apply(f_args);
+        result = Func.apply(that,f_args);
     });
     return result;
 

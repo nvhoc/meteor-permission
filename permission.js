@@ -35,6 +35,10 @@ PERMISSION = {
             return false;
         cb();
         return true;
+    },
+    addRole: function(role){
+        PERMISSION.ROLELIST[role]= new ROLE(role);
+        PERMISSION.length +=1;
     }
 
 };
